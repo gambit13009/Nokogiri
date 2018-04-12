@@ -2,10 +2,12 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 
-page = Nokogiri::HTML(open("https://coinmarketcap.com/all/views/all/")) #on va diriger Nokogiri vers la page coin marketcap 
+while 1 == 1 do
+
+page = Nokogiri::HTML(open("https://coinmarketcap.com/all/views/all/")) #on va diriger Nokogiri vers la page coin marketcap
 
 name_list = page.css('a.currency-name-container') #On repere le selecteur du nom des coins et on stock dans l'objet page.css qu'on nomme name_list , on va faire appel à ça par la suite en utlisant le .text qui va chercher le texte de la balise , dans notre cas le nom du coin
-price_list = page.css('a.price') #On va de même stocker la liste de prix, on rpère son selecteur : a.price, et la stocke avec la methode Nokogiri dans price_list, on va par la suite appeler ['data-usd'] pour donner le prix du coin 
+price_list = page.css('a.price') #On va de même stocker la liste de prix, on rpère son selecteur : a.price, et la stocke avec la methode Nokogiri dans price_list, on va par la suite appeler ['data-usd'] pour donner le prix du coin
 
 tab = Hash.new #on crée un nouveau Hash, dans lequel on va stocker le nom des coin et le prix associé
 
@@ -23,7 +25,7 @@ tab = Hash.new #on crée un nouveau Hash, dans lequel on va stocker le nom des c
 =end
 
 for i in 0 .. (name_list.length-1)
-	tab[name_list[i].text] = [price_list[i]['data-usd']] 
+	tab[name_list[i].text] = [price_list[i]['data-usd']]
 end
 
 #un petit timer pour que le code dort 1h et puis se relance
@@ -31,3 +33,4 @@ puts tab
 puts "-----------------------------------------------------------------"
 puts "sleeping 1h"
 sleep(3600)
+end 
